@@ -17,31 +17,37 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
-t = theta';
+% t = theta';
 
-for i = 1:m
-    h = sigmoid(t * X(i,:)');
-    J += -y(i) * log(h) - (1 - y(i)) * log (1 - h);
-end
+% for i = 1:m
+%     h = sigmoid(t * X(i,:)');
+%     J += -y(i) * log(h) - (1 - y(i)) * log (1 - h);
+% end
 
-J /= m;
+% J /= m;
 
-J += lambda / (2 * m) * (t * theta - t(1) * theta(1))
+% J += lambda / (2 * m) * (t * theta - t(1) * theta(1));
+
+h = sigmoid(X * theta);
+
+J = (1/m) * (-y' * log(h) - (1 - y)' * log(1 - h)) + lambda / (2 * m) * (theta(2:end)' * theta(2:end));
 
 %
-for i = 1:m
-    grad(1) += (sigmoid(t * X(i,:)') - y(i)) * X(i,1);
-end
-grad(1) /= m;
+% for i = 1:m
+%     grad(1) += (sigmoid(t * X(i,:)') - y(i)) * X(i,1);
+% end
+% grad(1) /= m;
 
-for j = 2:length(grad)
-    for i = 1:m
-        grad(j) += (sigmoid(t * X(i,:)') - y(i)) * X(i,j);
-    end
-    grad(j) /= m;
+% for j = 2:length(grad)
+%     for i = 1:m
+%         grad(j) += (sigmoid(t * X(i,:)') - y(i)) * X(i,j);
+%     end
+%     grad(j) /= m;
 
-    grad(j) += lambda / m * theta(j);
-end
+%     grad(j) += lambda / m * theta(j);
+% end
+
+grad = (1/m) * (X' * (h - y)) + lambda / m * [0; theta(2:end)];
 
 % =============================================================
 
