@@ -54,6 +54,12 @@ fprintf('Normalizing Features ...\n');
 % Add intercept term to X
 X = [ones(m, 1) X];
 
+% 
+fprintf('First 10 examples from the dataset afer normalizing: \n');
+fprintf(' x = [%.8f %.8f %.8f], y = %.0f \n', [X(1:10,:) y(1:10,:)]');
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
 
 %% ================ Part 2: Gradient Descent ================
 
@@ -104,8 +110,15 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+% price = 0; % You should change this
+% 
+% use this value of  to predict the price of a house with 1650 square feet and
+% 3 bedrooms. You will use value later to check your implementation of the
+% normal equations. Don't forget to normalize your features when you make
+% this prediction!
 
+x = featureNormalize([1650, 3])
+price = [1 x] * theta;
 
 % ============================================================
 
@@ -149,11 +162,19 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = 0; % You should change this
+% price = 0; % You should change this
 
+% Optional (ungraded) exercise: Now, once you have found  using this
+% method, use it to make a price prediction for a 1650-square-foot house with
+% 3 bedrooms. You should nd that gives the same predicted price as the value
+% you obtained using the model t with gradient descent 
+
+price = [1, 1650, 3] * theta;
 
 % ============================================================
 
 fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
          '(using normal equations):\n $%f\n'], price);
 
+fprintf('Program paused. Press enter to continue.\n');
+pause;
